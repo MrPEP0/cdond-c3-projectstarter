@@ -37,20 +37,18 @@ jobs:
     docker:
       - image: cimg/node:13.8.0
     steps:
-      - checkout
-      - restore_cache:
-          keys: [frontend-build-deps]
-      - run:
-          name: Build front-end
-          command: |
-#           Your code here
-            cd frontend
-            npm install
-            npm run build
-#           exit 1
-      - save_cache:
-          paths: [frontend/node_modules]
-          key: frontend-build-deps
+    - checkout
+    - restore_cache:
+        keys: [frontend-build-deps]
+    - run:
+        name: Build front-end
+        command: |
+          cd frontend
+          npm install
+          npm run build
+    - save_cache:
+        paths: [frontend/node_modules]
+        key: frontend-build-deps
 
   build-backend:
     docker:
@@ -62,11 +60,9 @@ jobs:
       - run:
           name: Back-end build
           command: |
-#            Your code here
              cd backend
              npm install
              npm run build
-#            exit 1
       - save_cache:
           paths: [backend/node_modules]
           key: backend-build-deps
