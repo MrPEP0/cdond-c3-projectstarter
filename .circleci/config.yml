@@ -41,7 +41,7 @@ jobs:
       - restore_cache:
           keys: [frontend-build-deps]
       - run:
-          name: 'Build front-end'
+          name: Build front-end
           command: |
 #           Your code here
             cd frontend
@@ -50,7 +50,7 @@ jobs:
 #           exit 1
       - save_cache:
           paths: [frontend/node_modules]
-          key: frontend-build
+          key: frontend-build-deps
 
   build-backend:
     docker:
@@ -69,7 +69,7 @@ jobs:
 #            exit 1
       - save_cache:
           paths: [backend/node_modules]
-          key: backend-build
+          key: backend-build-deps
 
 #   test-frontend:
 #     docker:
