@@ -99,21 +99,21 @@ jobs:
     docker:
       cimg/node:13.8.0
     steps:
-       checkout
+      checkout
       - restore_cache:
           keys: [frontend-build-deps]
       - run:
           name: Front-end Scan
           command: |
-             cd frontend
-             npm install
-             npm audit --audit-level=critical
+              cd frontend
+              npm install
+              npm audit --audit-level=critical
 
   scan-backend:
     docker:
       cimg/node:13.8.0
     steps:
-       checkout
+      checkout
       - restore_cache:
           keys: [backend-build-deps]
       - run:
