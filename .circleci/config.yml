@@ -81,14 +81,14 @@ jobs:
       - notify_on_failure
 
   test-frontend:
-    docker:
+#    docker:
 #      - image: cimg/node:13.8.0
     steps:
-      - checkout
-      - restore_cache:
-          keys: [frontend-build-deps]
+#      - checkout
+#      - restore_cache:
+#          keys: [frontend-build-deps]
       - run:
-          name: Front-end Unit Test
+#          name: Front-end Unit Test
           command: |
              cd frontend
              npm install
