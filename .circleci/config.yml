@@ -6,7 +6,7 @@ orbs:
 commands:
   notify_on_failure:
     steps:
-      - slack_notify:
+      - slack/notify:
           event: fail
           channel: project-3
           template: basic_fail_1
