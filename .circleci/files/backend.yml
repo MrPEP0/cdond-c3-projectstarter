@@ -9,7 +9,6 @@ Parameters:
 Resources:
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
-#   Type: AWS::EC2::SCREENSHOT05 A screenshot demonstrating an appropriate job failure
     Properties:
       GroupName: !Sub UdaPeople-${ID}
       GroupDescription: Allow port 22 and port 3030.
