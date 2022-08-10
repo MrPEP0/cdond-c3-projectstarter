@@ -56,13 +56,12 @@ commands:
           when: on_fail
           command: |
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            SUCCESS=$(curl --insecure https://kvdb.io/${KVDB_BUCKET)/migration_<< parameters.Workflow_ID >>)
+            SUCCESS=$(curl --insecure https://kvdb.io/${KVDB_BUCKET}/migration_<< parameters.Workflow_ID >>)
             # Logic for reverting the DB state
             if(( $SUCCESS==1 )); 
             then
               cd ~/project/backend
               npm install
-            #  Add revert code here. You can find this in the Getting Started section.
               npm run migration:revert
             fi
 
@@ -377,7 +376,7 @@ workflows:
       #       - scan-backend
       - deploy-infrastructure:
       #   requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-          requires: [build-frontend, build-backend]
+          requires: [build-frontend, build-backend, scan-frontend, scan-backend]
           filters:
             branches:
               only: [master]
