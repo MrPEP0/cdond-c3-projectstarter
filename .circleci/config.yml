@@ -66,7 +66,7 @@ commands:
             fi
 
   install_nodejs:
-    description: "Install Node.js 13 "	
+    description: "Install Node.js 13"
     steps: 
       - run:
           name: Install Node.js 13
@@ -407,8 +407,8 @@ workflows:
           requires: [deploy-infrastructure]
       - run-migrations:
           requires: [configure-infrastructure]
-      # - deploy-frontend:
-      #     requires: [run-migrations]
+      - deploy-frontend:
+          requires: [run-migrations]
       # - deploy-backend:
       #     requires: [run-migrations]
       # - smoke-test:
