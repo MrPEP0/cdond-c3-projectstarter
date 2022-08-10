@@ -235,6 +235,7 @@ jobs:
     steps:
       - checkout
       - install_awscli
+      - revert-migrations
       - run:
           name: Run migrations
           command: |
@@ -249,7 +250,6 @@ jobs:
               curl https://kvdb.io/${KVDB_BUCKET)/migration_${CIRCLE_WORKFLOW_ID:0:7) -d '1'
             fi
       - destroy-environment
-      - revert-migrations
 
 #   deploy-frontend:
 #     docker:
