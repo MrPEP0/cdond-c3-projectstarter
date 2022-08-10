@@ -301,6 +301,7 @@ jobs:
     steps:
       - checkout
       - install_awscli
+      - install_ansible
       - install_nodejs
       - add_ssh_keys:
           fingerprints: ["6a:8a:ba:93:37:8c:61:e8:65:00:d6:57:3c:10:f3:1a"]
@@ -310,10 +311,6 @@ jobs:
           keys: [backend-build-deps]
       - run:
           name: Install dependencies
-          command: |
-            # your code here
-      - run:
-          name: Deploy backend
           command: |
             cd backend
             npm install
@@ -329,7 +326,7 @@ jobs:
           name: Deploy backend	
           command: |
             export TYPEORM_MIGRATIONS_DIR=./migrations	
-            export TYPEORM_ENTITIES=./modules/domain/**/*.entity(.ts,.js)
+            export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
             export TYPEORM MIGRATIONS=./migrations/*.ts	
             cd .circleci/ansible	
             cat inventory.txt	
