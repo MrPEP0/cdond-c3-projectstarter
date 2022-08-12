@@ -450,12 +450,6 @@ jobs:
       - install_awscli
       - install_nodejs
       - run:
-          name: Destroy environments
-          command: |            
-            aws cloudformation delete-stack --stack-name "udapeople-backend-<< parameters.Workflow_ID >>"
-            aws s3 rm "s3://udapeople-<<parameters.Workflow_ID>>" --recursive
-            aws cloudformation delete-stack --stack-name "udapeople-frontend-<< parameters.Workflow_ID >>"
-      - run:
           name: Revert migrations
           command: |
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
@@ -467,7 +461,13 @@ jobs:
               npm install
               npm run migration:revert
             fi
-
+      - run:
+          name: Destroy environments
+          command: |            
+            aws cloudformation delete-stack --stack-name "udapeople-backend-<< parameters.Workflow_ID >>"
+            aws s3 rm "s3://udapeople-<<parameters.Workflow_ID>>" --recursive
+            aws cloudformation delete-stack --stack-name "udapeople-frontend-<< parameters.Workflow_ID >>"
+      
 
 workflows:
   default:
