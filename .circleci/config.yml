@@ -21,6 +21,7 @@ commands:
             sudo apt install software-properties-common
             sudo add-apt-repository --yes --update ppa:ansible/ansible
             sudo apt install ansible -y
+            sudo python3 -m pip install --user ansible
 
   notify_on_failure:
     steps:
@@ -289,9 +290,10 @@ jobs:
           name: Deploy frontend objects
           command: |
             cd frontend
+            npm install
             npm run build
+            tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
-      # Here's where you will add some code to rollback on failure      
       - destroy-environment
       - revert-migrations
 
@@ -317,7 +319,8 @@ jobs:
       - run:
           name: Package Backend	
           command: |
-            cd backend	
+            cd backend
+            npm i
             npm run build	
             tar -czf artifact.tar.gz dist/* package*
             cd ..	
@@ -333,7 +336,6 @@ jobs:
             ansible-playbook -i inventory.txt deploy-backend.yml	
       - destroy-environment
       - revert-migrations	
-        
 
   smoke-test:
     docker:
@@ -455,14 +457,14 @@ workflows:
               only: [master]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
-      - run-migrations:
-          requires: [configure-infrastructure]
-      - deploy-frontend:
-          requires: [run-migrations]
-      - deploy-backend:
-          requires: [run-migrations]
-      - smoke-test:
-          requires: [deploy-backend, deploy-frontend]
+      # - run-migrations:
+      #     requires: [configure-infrastructure]
+      # - deploy-frontend:
+      #     requires: [run-migrations]
+      # - deploy-backend:
+      #     requires: [run-migrations]
+      # - smoke-test:
+      #     requires: [deploy-backend, deploy-frontend]
       # - cloudfront-update:
       #     requires: [smoke-test]
       # - cleanup:
