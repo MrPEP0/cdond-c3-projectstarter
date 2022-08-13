@@ -234,7 +234,7 @@ jobs:
 
   run-migrations:
     docker:
-      - image: cimg/node:12.8.0
+      - image: cimg/base:stable
     steps:
       - checkout
       - install_awscli
@@ -245,7 +245,7 @@ jobs:
           name: Run migrations
           command: |
             cd backend
-            # npm install
+            npm install
             npm i
             # npm install --save-dev webpack@5.73.0
             # npm update mkdirp --depth
