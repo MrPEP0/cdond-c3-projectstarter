@@ -245,14 +245,15 @@ jobs:
           name: Run migrations
           command: |
             cd backend
-            npm install
+            # npm install
+            npm i
             # npm install --save-dev webpack@5.73.0
             # npm update mkdirp --depth
-            # npm audit fix --audit-level=critical --force 
+            npm audit fix --force 
             # npm run migration:revert > migrations_dump.txt
-            # npm run migrations:revert > migrations_dump.txt
-            npm run migrations > migrations_dump.txt
-            cat migrations_dump.txt
+            npm run migrations:revert
+            # npm run migrations > migrations_dump.txt
+            # cat migrations_dump.txt
       - run:
           name: Send migration results to KVDB.io
           command: |
