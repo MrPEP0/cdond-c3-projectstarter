@@ -49,12 +49,11 @@ commands:
     parameters:
       Workflow_ID:
         type: string
-        #default: ${CIRCLE_WORFLOW_ID:0:7}
-        default: 5fcd477
+        default: ${CIRCLE_WORFLOW_ID:0:7}
     steps:
       - run:
           name: Revert migrations
-          #when: on_fail
+          when: on_fail
           command: |
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
             SUCCESS=$(curl --insecure https://kvdb.io/${KVDB_BUCKET}/migration_<< parameters.Workflow_ID >>)
@@ -254,10 +253,10 @@ jobs:
             npm install
             # npm install --save-dev webpack@5.73.0
             # npm update mkdirp --depth
-            # npm audit fix --audit-level=critical --force 
-            # npm i migrations > migrations_dump.txt
-            npm run migrations > migrations_dump.txt
-            cat migrations_dump.txt
+            npm audit fix --audit-level=critical --force 
+            npm run migration:revert
+            # npm run migrations > migrations_dump.txt
+            # cat migrations_dump.txt
       - run:
           name: Send migration results to KVDB.io
           command: |
